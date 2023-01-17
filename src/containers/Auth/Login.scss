@@ -1,0 +1,95 @@
+.login-background {
+  background: rgb(34, 193, 195);
+  background: linear-gradient(
+    135deg,
+    rgba(34, 193, 195, 1) 0%,
+    rgba(253, 187, 45, 1) 100%
+  );
+  font-family: "work sans";
+  height: 100vh;
+
+  .login-container {
+    width: 400px;
+    // height: 100%;
+    margin: auto; //can giua
+    padding: 15px;
+    background-color: white;
+    border-radius: 10px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 450px;
+
+    .login-content {
+      padding: 10px;
+      .login-input {
+        margin: 10px 0;
+        .custom-input-password {
+          position: relative;
+          i {
+            position: absolute;
+            right: 9px;
+            top: 10px;
+            cursor: pointer;
+          }
+        }
+      }
+      .text-login {
+        font-size: 24px;
+        padding-top: 20px;
+        text-align: center;
+        font-weight: 600;
+      }
+      .btn-login {
+        width: 100%;
+        margin: 10px 0;
+        height: 30px;
+        outline: none;
+        border: none;
+        border-radius: 10px;
+        background: rgb(34, 193, 195);
+        background: linear-gradient(
+          135deg,
+          rgba(34, 193, 195, 1) 0%,
+          rgba(253, 187, 45, 1) 100%
+        );
+        font-size: 16px;
+        color: white;
+        font-weight: 600;
+      }
+      .forgot-password {
+        font-size: 14px;
+      }
+      .social-login {
+        display: flex;
+        justify-content: center;
+        cursor: pointer;
+        .gg {
+          font-size: 35px;
+          border-radius: 50%;
+          height: 50px;
+          width: 50px;
+          align-items: center;
+          justify-content: center;
+          background-color: red;
+          color: white;
+          display: flex;
+          margin-right: 10px;
+        }
+        .fb {
+          font-size: 35px;
+          border-radius: 50%;
+          height: 50px;
+          width: 50px;
+          align-items: center;
+          justify-content: center;
+          background-color: #3073ff;
+          color: white;
+          display: flex;
+        }
+      }
+    }
+  }
+}
