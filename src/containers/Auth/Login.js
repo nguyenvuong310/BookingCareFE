@@ -40,6 +40,8 @@ class Login extends Component {
         });
       } else if (data && data.errCode === 0) {
         //todo
+        delete data.user.errCode;
+        delete data.user.errMessage;
         this.props.userLoginSuccess(data.user);
         console.log("Login succeed!");
       }
@@ -141,8 +143,8 @@ const mapDispatchToProps = (dispatch) => {
     navigate: (path) => dispatch(push(path)),
 
     // userLoginFail: () => dispatch(actions.adminLoginFail()),
-    userLoginSuccess: (userInfo) =>
-      dispatch(actions.userLoginSuccess(userInfo)),
+    userLoginSuccess: (userInfor) =>
+      dispatch(actions.userLoginSuccess(userInfor)),
   };
 };
 
