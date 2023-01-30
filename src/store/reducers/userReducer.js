@@ -5,7 +5,7 @@ const initialState = {
   userInfo: null,
 };
 
-const userReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.USER_LOGIN_SUCCESS:
       return {
@@ -30,4 +30,4 @@ const userReducer = (state = initialState, action) => {
   }
 };
 
-export default userReducer;
+export default appReducer;

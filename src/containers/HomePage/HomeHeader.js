@@ -2,15 +2,8 @@ import React, { Component } from "react";
 // import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
-import { FormattedMessage } from "react-intl";
-import { LANGUAGES } from "../../utils/constant";
-import { changeLanguageApp } from "../../store/actions";
 class HomeHeader extends Component {
-  changLanguage = (language) => {
-    this.props.changeLanguageAppRedux(language);
-  };
   render() {
-    let language = this.props.language;
     return (
       <React.Fragment>
         {/* {console.log("props", this.props)} */}
@@ -23,71 +16,34 @@ class HomeHeader extends Component {
             <div className="center-content">
               <div className="child-center-content">
                 <div>
-                  <b>
-                    <FormattedMessage id="home-header.speciality" />
-                  </b>
+                  <b>Chuyên khoa</b>
                 </div>
-                <div>
-                  <FormattedMessage id="home-header.find-doctor" />
-                </div>
+                <div>Tìm bác sĩ theo chuyên khoa</div>
               </div>
               <div className="child-center-content">
                 <div>
-                  <b>
-                    <FormattedMessage id="home-header.facility" />
-                  </b>
+                  <b>Cơ sở y tế</b>
                 </div>
-                <div>
-                  <FormattedMessage id="home-header.chooseHos" />
-                </div>
+                <div>Chọn bệnh viện phòng khám</div>
               </div>
               <div className="child-center-content">
                 <div>
-                  <b>
-                    <FormattedMessage id="home-header.doctor" />
-                  </b>
+                  <b>Bác sĩ</b>
                 </div>
-                <div>
-                  <FormattedMessage id="home-header.chooseDoctor" />
-                </div>
+                <div>Chọn bác sĩ giỏi</div>
               </div>
               <div className="child-center-content">
                 <div>
-                  <b>
-                    <FormattedMessage id="home-header.package" />
-                  </b>
+                  <b>Gói khám</b>
                 </div>
-                <div>
-                  <FormattedMessage id="home-header.HealthCheck" />
-                </div>
+                <div>Khám sức khỏe tổng quát</div>
               </div>
             </div>
             <div className="right-content">
               <div className="support">
-                <i class="fas fa-question-circle">
-                  <FormattedMessage id="home-header.sp" />
-                </i>
+                <i className="fas fa-question"> support</i>
               </div>
-              <div
-                className={
-                  language === LANGUAGES.VI ? "lag-vn active" : "lag-vn"
-                }
-              >
-                <span onClick={() => this.changLanguage(LANGUAGES.VI)}>
-                  {" "}
-                  VN
-                </span>
-              </div>
-              <div
-                className={
-                  language === LANGUAGES.EN ? "lag-en active" : "lag-en"
-                }
-              >
-                <span onClick={() => this.changLanguage(LANGUAGES.EN)}>
-                  {" "}
-                  EN
-                </span>
-              </div>
+              <div className="flag">VN</div>
             </div>
           </div>
         </div>
@@ -150,15 +106,11 @@ const mapStateToProps = (state) => {
   //props
   return {
     isLoggedIn: state.user.isLoggedIn,
-    language: state.app.language,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    changeLanguageAppRedux: (languageInput) =>
-      dispatch(changeLanguageApp(languageInput)),
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
