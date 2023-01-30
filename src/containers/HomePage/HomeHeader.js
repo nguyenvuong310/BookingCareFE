@@ -2,8 +2,15 @@ import React, { Component } from "react";
 // import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import "./HomeHeader.scss";
+import { FormattedMessage } from "react-intl";
+import { LANGUAGES } from "../../utils/constant";
+import { changeLanguageApp } from "../../store/actions";
 class HomeHeader extends Component {
+  changLanguage = (language) => {
+    this.props.changeLanguageAppRedux(language);
+  };
   render() {
+    let language = this.props.language;
     return (
       <React.Fragment>
         {/* {console.log("props", this.props)} */}
@@ -16,9 +23,13 @@ class HomeHeader extends Component {
             <div className="center-content">
               <div className="child-center-content">
                 <div>
-                  <b>Chuyên khoa</b>
+                  <b>
+                    <FormattedMessage id="home-header.speciality" />
+                  </b>
                 </div>
-                <div>Tìm bác sĩ theo chuyên khoa</div>
+                <div>
+                  <FormattedMessage id="home-header.find-doctor" />
+                </div>
               </div>
               <div className="child-center-content">
                 <div>
@@ -28,22 +39,53 @@ class HomeHeader extends Component {
               </div>
               <div className="child-center-content">
                 <div>
-                  <b>Bác sĩ</b>
+                  <b>
+                    {" "}
+                    <FormattedMessage id="home-header.doctor" />
+                  </b>
                 </div>
-                <div>Chọn bác sĩ giỏi</div>
+                <div>
+                  <FormattedMessage id="home-header.chooseDoctor" />
+                </div>
               </div>
               <div className="child-center-content">
                 <div>
-                  <b>Gói khám</b>
+                  <b>
+                    <FormattedMessage id="home-header.package" />
+                  </b>
                 </div>
-                <div>Khám sức khỏe tổng quát</div>
+                <div>
+                  {" "}
+                  <FormattedMessage id="home-header.HealthCheck" />
+                </div>
               </div>
             </div>
             <div className="right-content">
               <div className="support">
-                <i className="fas fa-question"> support</i>
+                <i class="fas fa-question-circle">
+                  <FormattedMessage id="home-header.sp" />
+                </i>
               </div>
-              <div className="flag">VN</div>
+              <div
+                className={
+                  language === LANGUAGES.VI ? "lag-vn active" : "lag-vn"
+                }
+              >
+                <span onClick={() => this.changLanguage(LANGUAGES.VI)}>
+                  {" "}
+                  VN
+                </span>
+              </div>
+              <div
+                className={
+                  language === LANGUAGES.EN ? "lag-en active" : "lag-en"
+                }
+              >
+                <span onClick={() => this.changLanguage(LANGUAGES.EN)}>
+                  {" "}
+                  EN
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -106,11 +148,15 @@ const mapStateToProps = (state) => {
   //props
   return {
     isLoggedIn: state.user.isLoggedIn,
+    language: state.app.language,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    changeLanguageAppRedux: (languageInput) =>
+      dispatch(changeLanguageApp(languageInput)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeHeader);
