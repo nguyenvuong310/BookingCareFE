@@ -5,14 +5,14 @@ import { connect } from "react-redux";
 import { FormattedMessage } from "react-intl";
 import Slider from "react-slick";
 
-class Specialty extends Component {
+class HandBook extends Component {
   render() {
     return (
-      <div className="section-share section-specialty">
+      <div className="section-share section-handbook">
         <div className="section-container">
           <div className="section-header">
-            <span className="title-section">Chuyên khoa phổ biến</span>
-            <button className="btn-more">xem thêm</button>
+            <span className="title-section">Cẩm nang</span>
+            <button className="btn-more">Tất cả bài viết</button>
           </div>
           <div className="section-body">
             {/* setting ke thua tu HomePage.js */}
@@ -60,4 +60,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default connect(mapStateToProps, mapDispatchToProps)(HandBook);

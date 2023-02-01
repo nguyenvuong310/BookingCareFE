@@ -1,0 +1,108 @@
+.section-share {
+  .section-container {
+    height: 330px;
+    margin: 0 155px;
+    display: flex;
+    flex-direction: column;
+    .section-header {
+      height: 80px;
+      padding-top: 26px;
+      .title-section {
+        font-size: 20px;
+        font-weight: 600;
+      }
+      .btn-more {
+        float: right;
+        padding: 6px 10px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        background: #f5f5f5;
+        text-transform: uppercase;
+
+        &:hover {
+          background: #f7f800;
+          color: #fff;
+        }
+      }
+    }
+    .section-body {
+      .section-customize {
+        .txt {
+          margin-top: 10px;
+        }
+        .img-cus {
+          width: 278px;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-size: cover;
+          background-color: #eee;
+          height: 150px;
+        }
+      }
+    }
+    .slick-prev {
+      // position: relative !important;
+      left: -10px !important;
+      z-index: 10; // de khong bị đè
+      height: 48px !important;
+      width: 44px !important;
+      background: #fff !important;
+      border: 2px solid #d7d7d7 !important;
+      &:hover {
+        background: #d7d7d7 !important;
+      }
+    }
+    .slick-prev:before,
+    .slick-next:before {
+      font-family: FontAwesome !important;
+      color: red !important;
+    }
+    .slick-next {
+      right: -10px !important;
+      height: 48px !important;
+      width: 44px !important;
+      background: #fff !important;
+      border: 2px solid #d7d7d7 !important;
+      z-index: 10;
+      &:hover {
+        background: #d7d7d7 !important;
+      }
+    }
+  }
+  &.section-specialty {
+    background: #f5f5f5;
+    .img-cus {
+      background-image: url("../../assets/imageSpecialty/120331-co-xuong-khop.jpg");
+    }
+  }
+  &.section-medicalFacility {
+    .img-cus {
+      background-image: url("../../assets/Facility/114348-bv-viet-duc.jpg");
+    }
+  }
+  &.section-doctor {
+    background: #f5f5f5;
+    padding: 5px;
+    .cus-border {
+      border: 1px solid white;
+      padding: 18px;
+    }
+    .outer-bg {
+      margin-bottom: 10px;
+      .img-cus {
+        background-image: url("../../assets/doctor/103848anh-dai-dien-bs.jpg");
+        height: 120px !important;
+        width: 120px !important;
+        margin: 0 auto;
+        border-radius: 50%;
+      }
+    }
+  }
+  &.section-handbook {
+    .img-cus {
+      background-image: url("../../assets/handbook/162305-bac-si-kham-mat-gioi-tphcm.png");
+    }
+  }
+}
+//reset slick-slide-css

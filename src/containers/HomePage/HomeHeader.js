@@ -62,7 +62,7 @@ class HomeHeader extends Component {
             </div>
             <div className="right-content">
               <div className="support">
-                <i class="fas fa-question-circle">
+                <i className="fas fa-question-circle">
                   <FormattedMessage id="home-header.sp" />
                 </i>
               </div>
@@ -94,7 +94,7 @@ class HomeHeader extends Component {
             <div className="title1">NỀN TẢNG Y TẾ</div>
             <div className="title2">CHĂM SÓC SỨC KHỎE TOÀN DIỆN</div>
             <div className="search">
-              <i class="fas fa-search"></i>
+              <i className="fas fa-search"></i>
               <input type="text" placeholder="Tìm bệnh viện" />
             </div>
           </div>
@@ -102,37 +102,37 @@ class HomeHeader extends Component {
             <div className="option">
               <div className="option-child">
                 <div className="icon-child">
-                  <i class="fas fa-hospital-alt"></i>
+                  <i className="fas fa-hospital-alt"></i>
                 </div>
                 <div className="text-child">Khám chuyên khoa</div>
               </div>
               <div className="option-child">
                 <div className="icon-child">
-                  <i class="fas fa-mobile"></i>
+                  <i className="fas fa-mobile"></i>
                 </div>
                 <div className="text-child">Khám từ xa</div>
               </div>
               <div className="option-child">
                 <div className="icon-child">
-                  <i class="fas fa-procedures"></i>
+                  <i className="fas fa-procedures"></i>
                 </div>
                 <div className="text-child">Khám tổng quát</div>
               </div>
               <div className="option-child">
                 <div className="icon-child">
-                  <i class="fas fa-syringe"></i>
+                  <i className="fas fa-syringe"></i>
                 </div>
                 <div className="text-child">Xét nghiệm y học</div>
               </div>
               <div className="option-child">
                 <div className="icon-child">
-                  <i class="fas fa-user-alt"></i>
+                  <i className="fas fa-user-alt"></i>
                 </div>
                 <div className="text-child">Sức khỏe tinh thần</div>
               </div>
               <div className="option-child">
                 <div className="icon-child">
-                  <i class="fas fa-notes-medical"></i>
+                  <i className="fas fa-notes-medical"></i>
                 </div>
                 <div className="text-child">Khám nha khoa</div>
               </div>
