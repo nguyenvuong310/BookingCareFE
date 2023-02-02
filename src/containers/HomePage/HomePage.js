@@ -2,10 +2,12 @@ import React, { Component } from "react";
 // import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import HomeHeader from "./HomeHeader";
+import HomeFooter from "./HomeFooter";
 import Specialty from "./Section/Specialty";
 import MedicalFacility from "./Section/medicalFacility";
 import OutStandingDoctor from "./Section/OutStandingDoctor";
 import HandBook from "./Section/handbook";
+import About from "./Section/about";
 import "./HomePage.scss"; // file scss chung cho section
 //
 // Import css files
@@ -20,7 +22,7 @@ class HomePage extends Component {
       infinite: true,
       speed: 500,
       slidesToShow: 4,
-      slidesToScroll: 4,
+      slidesToScroll: 1,
     };
     return (
       <div>
@@ -31,6 +33,8 @@ class HomePage extends Component {
         <MedicalFacility settings={settings} />
         <OutStandingDoctor settings={settings} />
         <HandBook settings={settings} />
+        <About />
+        <HomeFooter />
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import "./HomeHeader.scss";
+// import "./HomeHeader.scss"; import scss tu homepage.js
 import { FormattedMessage } from "react-intl";
 import { LANGUAGES } from "../../utils/constant";
 import { changeLanguageApp } from "../../store/actions";
