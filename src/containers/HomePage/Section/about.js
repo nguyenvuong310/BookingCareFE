@@ -19,9 +19,9 @@ class About extends Component {
               height="320"
               src="https://www.youtube.com/embed/vh8YU43VL0Y"
               title="Như Những Phút Ban Đầu - Myra Trần | Cover"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowfullscreen
+              allowFullScreen
             ></iframe>
           </div>
           <div className="content-right">

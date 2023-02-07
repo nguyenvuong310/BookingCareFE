@@ -327,12 +327,13 @@
 .home-footer {
   height: 80px;
   background-color: #64b9e5;
-  padding-top: 10px;
+  padding: 10px 125px;
+  display: flex;
   .txt {
     color: white;
-    small {
-      margin-left: 134px;
-    }
+  }
+  .icon {
+    text-align: right;
   }
 }
 //reset slick-slide-css
