@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch } from "react-router-dom";
 import UserManage from "../containers/System/UserManage";
-import ProductManage from "../containers/System/ProductManage";
+import UserRedux from "../containers/System//admin/UserRedux";
 import RegisterPackageGroupOrAcc from "../containers/System/RegisterPackageGroupOrAcc";
 import Header from "../containers/Header/Header";
 class System extends Component {
@@ -15,7 +15,7 @@ class System extends Component {
           <div className="system-list">
             <Switch>
               <Route path="/system/user-manage" component={UserManage} />
-              <Route path="/system/user-redux" component={ProductManage} />
+              <Route path="/system/user-redux" component={UserRedux} />
               <Route
                 path="/system/register-package-group-or-account"
                 component={RegisterPackageGroupOrAcc}
