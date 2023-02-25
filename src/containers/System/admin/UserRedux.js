@@ -3,6 +3,7 @@ import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { getAllCodeService } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils/constant";
+import * as actions from "../../../store/actions";
 class UserRedux extends Component {
   constructor(props) {
     super(props);
@@ -12,37 +13,18 @@ class UserRedux extends Component {
       roleArr: [],
     };
   }
-
-  async componentDidMount() {
-    try {
-      let resGender = await getAllCodeService("gender");
-      resGender = resGender.data;
-      if (resGender && resGender.errCode === 0) {
-        this.setState({
-          genderArr: resGender.data,
-        });
-      }
-      let resPos = await getAllCodeService("position");
-      resPos = resPos.data;
-      if (resPos && resPos.errCode === 0) {
-        this.setState({
-          posArr: resPos.data,
-        });
-      }
-      let resRole = await getAllCodeService("role");
-      resRole = resRole.data;
-      if (resRole && resRole.errCode === 0) {
-        this.setState({
-          roleArr: resRole.data,
-        });
-      }
-    } catch (e) {
-      console.log(e);
+  componentDidUpdate(prevProps, prevState, snapShot) {
+    if (prevProps.genderRedux !== this.props.genderRedux) {
+      this.setState({
+        genderArr: this.props.genderRedux,
+      });
     }
+  }
+  async componentDidMount() {
+    this.props.getGenderStart();
   }
 
   render() {
-    console.log("check state", this.state);
     let gender = this.state.genderArr;
     let position = this.state.posArr;
     let role = this.state.roleArr;
@@ -171,11 +153,16 @@ class UserRedux extends Component {
 const mapStateToProps = (state) => {
   return {
     language: state.app.language,
+    genderRedux: state.admin.genders,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    getGenderStart: () => dispatch(actions.fetchGenderStart()),
+    // changeLanguageAppRedux: (languageInput) =>
+    //   dispatch(actions.changeLanguageApp(languageInput)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserRedux);
