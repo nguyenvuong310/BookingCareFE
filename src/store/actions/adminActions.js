@@ -1,5 +1,8 @@
 import actionTypes from "./actionTypes";
-import { getAllCodeService } from "../../services/userService";
+import {
+  getAllCodeService,
+  createNewUserService,
+} from "../../services/userService";
 // export const fetchGenderStart = () => ({
 //   type: actionTypes.FETCH_GENDER_START,
 // });
@@ -83,4 +86,31 @@ export const fetchPosSuccess = (posData) => ({
 
 export const fetchPosFailed = () => ({
   type: actionTypes.FETCH_POSITION_FAILED,
+});
+
+export const createNewUser = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      // dispatch({ type: actionTypes.FETCH_GENDER_START });
+      console.log("chech", data);
+      let res = await createNewUserService(data);
+      console.log("check data ", res);
+      if (res && res.errCode === 0) {
+        dispatch(saveUserSucceed());
+      } else {
+        dispatch(saveUserFailed());
+      }
+    } catch (error) {
+      dispatch(saveUserFailed());
+      console.log("Fetch error", error);
+    }
+  };
+};
+
+export const saveUserSucceed = () => ({
+  type: "CREATE_USER_SUCCESS",
+});
+
+export const saveUserFailed = () => ({
+  type: "CREATE_USER_FAILED",
 });

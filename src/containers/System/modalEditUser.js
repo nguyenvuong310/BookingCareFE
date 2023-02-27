@@ -70,7 +70,7 @@ class ModalEditUser extends Component {
         <ModalBody>
           <div className="modal-user-body">
             <div className="input-container">
-              <lable>Email</lable>
+              <label>Email</label>
               <input
                 type="email"
                 placeholder="alo@gmail.com"
@@ -80,7 +80,7 @@ class ModalEditUser extends Component {
               ></input>
             </div>
             <div className="input-container">
-              <lable>Password</lable>
+              <label>Password</label>
               <input
                 type="password"
                 onChange={(event) =>
@@ -91,7 +91,7 @@ class ModalEditUser extends Component {
               ></input>
             </div>
             <div className="input-container">
-              <lable>FirstName</lable>
+              <label>FirstName</label>
               <input
                 type="text"
                 onChange={(event) =>
@@ -101,7 +101,7 @@ class ModalEditUser extends Component {
               ></input>
             </div>
             <div className="input-container">
-              <lable>LastName</lable>
+              <label>LastName</label>
               <input
                 type="text"
                 onChange={(event) =>
@@ -111,7 +111,7 @@ class ModalEditUser extends Component {
               ></input>
             </div>
             <div className="input-container max-width-input">
-              <lable>Address</lable>
+              <label>Address</label>
               <input
                 type="text"
                 onChange={(event) => this.handleOnChangeInput(event, "address")}
