@@ -1,7 +1,9 @@
 import actionTypes from "./actionTypes";
+import { toast } from "react-toastify";
 import {
   getAllCodeService,
   createNewUserService,
+  getAllUsers,
 } from "../../services/userService";
 // export const fetchGenderStart = () => ({
 //   type: actionTypes.FETCH_GENDER_START,
@@ -38,6 +40,7 @@ export const fetchRoleStart = () => {
   return async (dispatch, getState) => {
     try {
       // dispatch({ type: actionTypes.FETCH_GENDER_START });
+
       let resRole = await getAllCodeService("ROLE");
       resRole = resRole.data;
       if (resRole && resRole.errCode === 0) {
@@ -92,11 +95,10 @@ export const createNewUser = (data) => {
   return async (dispatch, getState) => {
     try {
       // dispatch({ type: actionTypes.FETCH_GENDER_START });
-      console.log("chech", data);
       let res = await createNewUserService(data);
-      console.log("check data ", res);
-      if (res && res.errCode === 0) {
-        dispatch(saveUserSucceed());
+      if (res && res.message.errCode === 0) {
+        toast.success("MY SUCCESS");
+        saveUserSucceed();
       } else {
         dispatch(saveUserFailed());
       }
@@ -113,4 +115,30 @@ export const saveUserSucceed = () => ({
 
 export const saveUserFailed = () => ({
   type: "CREATE_USER_FAILED",
+});
+
+export const fetchAllUserStart = () => {
+  return async (dispatch, getState) => {
+    try {
+      // dispatch({ type: actionTypes.FETCH_GENDER_START });
+      let res = await getAllUsers("ALL");
+      if (res && res.errCode === 0) {
+        dispatch(fetchAllUserSuccess(res.users.reverse()));
+      } else {
+        dispatch(fetchAllUserFailed());
+      }
+    } catch (error) {
+      dispatch(fetchAllUserFailed());
+      console.log("Fetch error", error);
+    }
+  };
+};
+
+export const fetchAllUserFailed = () => ({
+  type: actionTypes.FETCH_ALL_USER_FAILED,
+});
+
+export const fetchAllUserSuccess = (data) => ({
+  type: actionTypes.FETCH_ALL_USER_SUCCEED,
+  userAction: data,
 });

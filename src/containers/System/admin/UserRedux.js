@@ -5,7 +5,9 @@ import { getAllCodeService } from "../../../services/userService";
 import { LANGUAGES } from "../../../utils/constant";
 import * as actions from "../../../store/actions";
 import "./UserRedux.scss";
+import TableManageUser from "./TableManageUser";
 //
+
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
@@ -32,26 +34,44 @@ class UserRedux extends Component {
     };
   }
   componentDidUpdate(prevProps, prevState, snapShot) {
+    let arrRole = this.props.roleRedux;
+    let arrGender = this.props.genderRedux;
+    let arrPos = this.props.posRedux;
     if (prevProps.genderRedux !== this.props.genderRedux) {
-      let arrGender = this.props.genderRedux;
       this.setState({
         genderArr: arrGender,
         Gender: arrGender && arrGender.length > 0 ? arrGender[0].key : "",
       });
     }
     if (prevProps.roleRedux !== this.props.roleRedux) {
-      let arrRole = this.props.roleRedux;
       this.setState({
         roleArr: arrRole,
         Role: arrRole && arrRole.length > 0 ? arrRole[0].key : "",
       });
     }
     if (prevProps.posRedux !== this.props.posRedux) {
-      let arrPos = this.props.posRedux;
       this.setState({
         posArr: arrPos,
         Position: arrPos && arrPos.length > 0 ? arrPos[0].key : "",
       });
+    }
+    // cap nhat lai form
+    if (prevProps.listUser !== this.props.listUser) {
+      this.setState(
+        {
+          email: "",
+          password: "",
+          firstName: "",
+          lastName: "",
+          address: "",
+          phoneNumber: "",
+          Role: arrRole && arrRole.length > 0 ? arrRole[0].key : "",
+          Position: arrPos && arrPos.length > 0 ? arrPos[0].key : "",
+          avatar: "",
+          Gender: arrGender && arrGender.length > 0 ? arrGender[0].key : "",
+        },
+        () => console.log("check address", this.state.address)
+      );
     }
   }
   async componentDidMount() {
@@ -113,6 +133,11 @@ class UserRedux extends Component {
         position: this.state.Position,
       };
       this.props.createUserRedux(data);
+      setTimeout(() => {
+        // toast.success("MY SUCCESS");
+        this.props.getAllUserStart();
+      }, 1000);
+      // ;
     }
   };
   handleOnChangeInput = (event, type) => {
@@ -218,6 +243,7 @@ class UserRedux extends Component {
                 <input
                   className="form-control"
                   type="text"
+                  value={address}
                   onChange={(event) =>
                     this.handleOnChangeInput(event, "address")
                   }
@@ -322,6 +348,9 @@ class UserRedux extends Component {
                   <FormattedMessage id="manage-user.save" />
                 </button>
               </div>
+              <div className="col-12 my-3">
+                <TableManageUser />
+              </div>
             </div>
           </div>
         </div>
@@ -343,6 +372,7 @@ const mapStateToProps = (state) => {
     roleRedux: state.admin.roles,
     posRedux: state.admin.positions,
     isLoading: state.admin.isLoading,
+    listUser: state.admin.users,
   };
 };
 
@@ -352,6 +382,8 @@ const mapDispatchToProps = (dispatch) => {
     getRoleStart: () => dispatch(actions.fetchRoleStart()),
     getPosStart: () => dispatch(actions.fetchPosStart()),
     createUserRedux: (data) => dispatch(actions.createNewUser(data)),
+    // cap nhat lai
+    getAllUserStart: () => dispatch(actions.fetchAllUserStart()),
     // changeLanguageAppRedux: (languageInput) =>
     //   dispatch(actions.changeLanguageApp(languageInput)),
   };
