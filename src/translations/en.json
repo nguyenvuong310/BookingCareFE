@@ -50,6 +50,7 @@
     "Position": "Position",
     "image": "Image",
     "role": "Role",
-    "save": "Save"
+    "save": "Save",
+    "edit": "Edit"
   }
 }

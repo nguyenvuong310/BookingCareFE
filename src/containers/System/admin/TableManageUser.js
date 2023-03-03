@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./TableManageUser.scss";
+import UserRedux from "./UserRedux";
 import * as actions from "../../../store/actions";
 
 class TableManageUser extends Component {
@@ -13,7 +14,7 @@ class TableManageUser extends Component {
   }
 
   async componentDidMount() {
-    this.props.getAllUserStart();
+    this.props.getAllUserStartFromRedux();
   }
   componentDidUpdate(prevProps, prevState, snapShot) {
     if (prevProps.userFromRedux !== this.props.userFromRedux) {
@@ -22,6 +23,12 @@ class TableManageUser extends Component {
       });
     }
   }
+  handleDelUser = (user) => {
+    this.props.delUserStartFromRedux(user.id);
+  };
+  handleEditUser = (user) => {
+    this.props.handleEditUserFromParent(user);
+  };
   render() {
     let arrUser = this.state.userState;
     return (
@@ -78,7 +85,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAllUserStart: () => dispatch(actions.fetchAllUserStart()),
+    getAllUserStartFromRedux: () => dispatch(actions.fetchAllUserStart()),
+    delUserStartFromRedux: (userId) => dispatch(actions.delUserStart(userId)),
   };
 };
 

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { getAllCodeService } from "../../../services/userService";
-import { LANGUAGES } from "../../../utils/constant";
+import { LANGUAGES, CRUD_ACTIONS } from "../../../utils/constant";
 import * as actions from "../../../store/actions";
 import "./UserRedux.scss";
 import TableManageUser from "./TableManageUser";
@@ -31,6 +31,8 @@ class UserRedux extends Component {
       avatar: "",
       address: "",
       Gender: "",
+
+      action: "",
     };
   }
   componentDidUpdate(prevProps, prevState, snapShot) {
@@ -133,10 +135,10 @@ class UserRedux extends Component {
         position: this.state.Position,
       };
       this.props.createUserRedux(data);
-      setTimeout(() => {
-        // toast.success("MY SUCCESS");
-        this.props.getAllUserStart();
-      }, 1000);
+      // setTimeout(() => {
+      //   // toast.success("MY SUCCESS");
+      //   this.props.getAllUserStart();
+      // }, 1000);
       // ;
     }
   };
@@ -145,6 +147,22 @@ class UserRedux extends Component {
     copyState[type] = event.target.value;
     this.setState({
       ...copyState,
+    });
+  };
+
+  handleFillDataUser = (user) => {
+    //user dc lay tu api node js
+    this.setState({
+      email: user.email,
+      password: user.password,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      address: user.address,
+      Gender: user.gender,
+      Role: user.roleId,
+      phoneNumber: user.phoneNumber,
+      Position: user.positionId,
+      action: CRUD_ACTIONS.EDIT,
     });
   };
   render() {
@@ -258,6 +276,7 @@ class UserRedux extends Component {
                   onChange={(event) =>
                     this.handleOnChangeInput(event, "Gender")
                   }
+                  value={Gender}
                 >
                   {gender &&
                     gender.length > 0 &&
@@ -282,6 +301,7 @@ class UserRedux extends Component {
                   onChange={(event) =>
                     this.handleOnChangeInput(event, "Position")
                   }
+                  value={Position}
                 >
                   {position &&
                     position.length > 0 &&
@@ -304,6 +324,7 @@ class UserRedux extends Component {
                 <select
                   class="form-control"
                   onChange={(event) => this.handleOnChangeInput(event, "Role")}
+                  value={Role}
                 >
                   {role &&
                     role.length > 0 &&
@@ -342,14 +363,25 @@ class UserRedux extends Component {
               </div>
               <div className="col-12 mt-3">
                 <button
-                  className="btn btn-primary"
+                  className={
+                    this.state.action === CRUD_ACTIONS.EDIT
+                      ? "btn btn-warning"
+                      : "btn btn-primary"
+                  }
                   onClick={() => this.handleOnClickSave()}
                 >
-                  <FormattedMessage id="manage-user.save" />
+                  {this.state.action === CRUD_ACTIONS.EDIT ? (
+                    <FormattedMessage id="manage-user.edit" />
+                  ) : (
+                    <FormattedMessage id="manage-user.save" />
+                  )}
                 </button>
               </div>
               <div className="col-12 my-3">
-                <TableManageUser />
+                <TableManageUser
+                  handleEditUserFromParent={this.handleFillDataUser}
+                  action={this.state.action}
+                />
               </div>
             </div>
           </div>
