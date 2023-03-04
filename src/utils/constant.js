@@ -12,7 +12,7 @@ export const LANGUAGES = {
 };
 
 export const CRUD_ACTIONS = {
-  CREAT: "CREAT",
+  CREATE: "CREATE",
   EDIT: "EDIT",
   DELETE: "DELETE",
   UPDATE: "UPDATE",

@@ -5,6 +5,7 @@ import {
   createNewUserService,
   getAllUsers,
   delUserService,
+  editUserService,
 } from "../../services/userService";
 import { dispatch } from "../../redux";
 // export const fetchGenderStart = () => ({
@@ -173,4 +174,33 @@ export const delUserSucceed = () => ({
 
 export const delUserFail = () => ({
   type: actionTypes.DELETE_USER_FAILED,
+});
+
+//edit
+export const editUser = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      // dispatch({ type: actionTypes.FETCH_GENDER_START });
+      let res = await editUserService(data);
+      console.log(res);
+      if (res && res.errCode === 0) {
+        toast.success("Edit user succeed!");
+        dispatch(editUserSucceed());
+        dispatch(fetchAllUserStart());
+      } else {
+        toast.error(res.errMessage);
+        dispatch(editUserFailed());
+      }
+    } catch (error) {
+      dispatch(editUserFailed());
+      console.log("Fetch error", error);
+    }
+  };
+};
+
+export const editUserSucceed = () => ({
+  type: actionTypes.EDIT_USER_SUCCEED,
+});
+export const editUserFailed = () => ({
+  type: actionTypes.EDIT_USER_FAILED,
 });

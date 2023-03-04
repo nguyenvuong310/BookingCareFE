@@ -33,6 +33,7 @@ class UserRedux extends Component {
       Gender: "",
 
       action: "",
+      userEditId: "",
     };
   }
   componentDidUpdate(prevProps, prevState, snapShot) {
@@ -71,6 +72,7 @@ class UserRedux extends Component {
           Position: arrPos && arrPos.length > 0 ? arrPos[0].key : "",
           avatar: "",
           Gender: arrGender && arrGender.length > 0 ? arrGender[0].key : "",
+          action: CRUD_ACTIONS.CREATE,
         },
         () => console.log("check address", this.state.address)
       );
@@ -124,6 +126,7 @@ class UserRedux extends Component {
     let isValid = this.checkValidInput();
     if (isValid) {
       let data = {
+        id: this.state.userEditId,
         email: this.state.email,
         password: this.state.password,
         firstName: this.state.firstName,
@@ -134,7 +137,14 @@ class UserRedux extends Component {
         phoneNumber: this.state.phoneNumber,
         position: this.state.Position,
       };
-      this.props.createUserRedux(data);
+      let { action } = this.state;
+      if (action === CRUD_ACTIONS.CREATE) {
+        this.props.createUserRedux(data);
+      }
+      if (action === CRUD_ACTIONS.EDIT) {
+        this.props.editUser(data);
+      }
+
       // setTimeout(() => {
       //   // toast.success("MY SUCCESS");
       //   this.props.getAllUserStart();
@@ -154,7 +164,7 @@ class UserRedux extends Component {
     //user dc lay tu api node js
     this.setState({
       email: user.email,
-      password: user.password,
+      password: "HASHCODE",
       firstName: user.firstName,
       lastName: user.lastName,
       address: user.address,
@@ -163,6 +173,7 @@ class UserRedux extends Component {
       phoneNumber: user.phoneNumber,
       Position: user.positionId,
       action: CRUD_ACTIONS.EDIT,
+      userEditId: user.id,
     });
   };
   render() {
@@ -200,6 +211,7 @@ class UserRedux extends Component {
                   type="email"
                   value={email}
                   onChange={(event) => this.handleOnChangeInput(event, "email")}
+                  disabled={this.state.action === CRUD_ACTIONS.EDIT}
                 />
               </div>
               <div className="col-3">
@@ -213,6 +225,7 @@ class UserRedux extends Component {
                   onChange={(event) =>
                     this.handleOnChangeInput(event, "password")
                   }
+                  disabled={this.state.action === CRUD_ACTIONS.EDIT}
                 />
               </div>
               <div className="col-3">
@@ -416,6 +429,7 @@ const mapDispatchToProps = (dispatch) => {
     createUserRedux: (data) => dispatch(actions.createNewUser(data)),
     // cap nhat lai
     getAllUserStart: () => dispatch(actions.fetchAllUserStart()),
+    editUser: (data) => dispatch(actions.editUser(data)),
     // changeLanguageAppRedux: (languageInput) =>
     //   dispatch(actions.changeLanguageApp(languageInput)),
   };
