@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import { getAllCodeService } from "../../../services/userService";
-import { LANGUAGES, CRUD_ACTIONS } from "../../../utils/constant";
+import { LANGUAGES, CRUD_ACTIONS, CommonUtils } from "../../../utils";
 import * as actions from "../../../store/actions";
 import "./UserRedux.scss";
 import TableManageUser from "./TableManageUser";
@@ -70,7 +70,7 @@ class UserRedux extends Component {
           phoneNumber: "",
           Role: arrRole && arrRole.length > 0 ? arrRole[0].key : "",
           Position: arrPos && arrPos.length > 0 ? arrPos[0].key : "",
-          avatar: "",
+          previewImg: "",
           Gender: arrGender && arrGender.length > 0 ? arrGender[0].key : "",
           action: CRUD_ACTIONS.CREATE,
         },
@@ -83,14 +83,16 @@ class UserRedux extends Component {
     this.props.getRoleStart();
     this.props.getPosStart();
   }
-  handleOnChangeImg = (event) => {
+  handleOnChangeImg = async (event) => {
     let data = event.target.files;
     let file = data[0];
     if (file) {
+      let base64 = await CommonUtils.getBase64(file);
+      // console.log("data file ", base64);
       let objectUrl = URL.createObjectURL(file);
       this.setState({
         previewImg: objectUrl,
-        avatar: file,
+        avatar: base64,
       });
     }
   };
@@ -136,6 +138,8 @@ class UserRedux extends Component {
         roleId: this.state.Role,
         phoneNumber: this.state.phoneNumber,
         position: this.state.Position,
+        avatar: this.state.avatar,
+        previewImg: this.state.previewImg,
       };
       let { action } = this.state;
       if (action === CRUD_ACTIONS.CREATE) {
@@ -162,9 +166,13 @@ class UserRedux extends Component {
 
   handleFillDataUser = (user) => {
     //user dc lay tu api node js
+    let image64 = "";
+    if (user.image) {
+      image64 = new Buffer(user.image, "base64").toString("binary");
+    }
     this.setState({
       email: user.email,
-      password: "HASHCODE",
+      password: "HARDCODE",
       firstName: user.firstName,
       lastName: user.lastName,
       address: user.address,
@@ -174,6 +182,7 @@ class UserRedux extends Component {
       Position: user.positionId,
       action: CRUD_ACTIONS.EDIT,
       userEditId: user.id,
+      previewImg: image64,
     });
   };
   render() {
@@ -188,7 +197,7 @@ class UserRedux extends Component {
       address,
       Role,
       Position,
-      avatar,
+      // avatar,
       lastName,
       firstName,
       Gender,
