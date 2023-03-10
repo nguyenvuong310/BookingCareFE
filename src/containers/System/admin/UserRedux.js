@@ -43,19 +43,19 @@ class UserRedux extends Component {
     if (prevProps.genderRedux !== this.props.genderRedux) {
       this.setState({
         genderArr: arrGender,
-        Gender: arrGender && arrGender.length > 0 ? arrGender[0].key : "",
+        Gender: arrGender && arrGender.length > 0 ? arrGender[0].keyMap : "",
       });
     }
     if (prevProps.roleRedux !== this.props.roleRedux) {
       this.setState({
         roleArr: arrRole,
-        Role: arrRole && arrRole.length > 0 ? arrRole[0].key : "",
+        Role: arrRole && arrRole.length > 0 ? arrRole[0].keyMap : "",
       });
     }
     if (prevProps.posRedux !== this.props.posRedux) {
       this.setState({
         posArr: arrPos,
-        Position: arrPos && arrPos.length > 0 ? arrPos[0].key : "",
+        Position: arrPos && arrPos.length > 0 ? arrPos[0].keyMap : "",
       });
     }
     // cap nhat lai form
@@ -68,10 +68,10 @@ class UserRedux extends Component {
           lastName: "",
           address: "",
           phoneNumber: "",
-          Role: arrRole && arrRole.length > 0 ? arrRole[0].key : "",
-          Position: arrPos && arrPos.length > 0 ? arrPos[0].key : "",
+          Role: arrRole && arrRole.length > 0 ? arrRole[0].keyMap : "",
+          Position: arrPos && arrPos.length > 0 ? arrPos[0].keyMap : "",
           previewImg: "",
-          Gender: arrGender && arrGender.length > 0 ? arrGender[0].key : "",
+          Gender: arrGender && arrGender.length > 0 ? arrGender[0].keyMap : "",
           action: CRUD_ACTIONS.CREATE,
         },
         () => console.log("check address", this.state.address)
@@ -304,7 +304,7 @@ class UserRedux extends Component {
                     gender.length > 0 &&
                     gender.map((item, index) => {
                       return (
-                        <option key={index} value={item.key}>
+                        <option key={index} value={item.keyMap}>
                           {" "}
                           {language === LANGUAGES.VI
                             ? item.valueVi
@@ -329,7 +329,7 @@ class UserRedux extends Component {
                     position.length > 0 &&
                     position.map((item, index) => {
                       return (
-                        <option key={index} value={item.key}>
+                        <option key={index} value={item.keyMap}>
                           {" "}
                           {language === LANGUAGES.VI
                             ? item.valueVi
@@ -352,7 +352,7 @@ class UserRedux extends Component {
                     role.length > 0 &&
                     role.map((item, index) => {
                       return (
-                        <option key={index} value={item.key}>
+                        <option key={index} value={item.keyMap}>
                           {" "}
                           {language === LANGUAGES.VI
                             ? item.valueVi

@@ -1,13 +1,35 @@
 import React, { Component } from "react";
 // import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-
+import * as actions from "../../../store/actions";
 import { FormattedMessage } from "react-intl";
 import Slider from "react-slick";
+import { LANGUAGES } from "../../../utils/constant";
 // Import css files
 
 class OutStandingDoctor extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrDoctor: [],
+    };
+  }
+  componentDidMount() {
+    this.props.loadTopDoctor();
+    console.log("test");
+  }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.topDoctorRedux !== this.props.topDoctorRedux) {
+      this.setState({
+        arrDoctor: this.props.topDoctorRedux,
+      });
+    }
+  }
   render() {
+    console.log("check props", this.props.topDoctorRedux);
+    let { arrDoctor } = this.state;
+    arrDoctor = arrDoctor.concat(arrDoctor).concat(arrDoctor);
+    let language = this.props.language;
     return (
       <div className="section-share section-doctor">
         <div className="section-container">
@@ -18,72 +40,31 @@ class OutStandingDoctor extends Component {
           <div className="section-body">
             {/* setting ke thua tu HomePage.js */}
             <Slider {...this.props.settings}>
-              <div className="section-customize">
-                <div className="cus-border">
-                  <div className="outer-bg">
-                    <div className="img-cus"></div>
-                  </div>
-                  <div className="position text-center">
-                    <div>Bệnh viện Hữu nghị Việt Đức 1</div>
-                    <div>Bệnh viện Hữu nghị Việt Đức 1</div>
-                  </div>
-                </div>
-              </div>
-              <div className="section-customize">
-                <div className="cus-border">
-                  <div className="outer-bg">
-                    <div className="img-cus"></div>
-                  </div>
-                  <div className="position text-center">
-                    <div>Bệnh viện Hữu nghị Việt Đức 1</div>
-                    <div>Bệnh viện Hữu nghị Việt Đức 1</div>
-                  </div>
-                </div>
-              </div>
-              <div className="section-customize">
-                <div className="cus-border">
-                  <div className="outer-bg">
-                    <div className="img-cus"></div>
-                  </div>
-                  <div className="position text-center">
-                    <div>Bệnh viện Hữu nghị Việt Đức 1</div>
-                    <div>Bệnh viện Hữu nghị Việt Đức 1</div>
-                  </div>
-                </div>
-              </div>
-              <div className="section-customize">
-                <div className="cus-border">
-                  <div className="outer-bg">
-                    <div className="img-cus"></div>
-                  </div>
-                  <div className="position text-center">
-                    <div>Bệnh viện Hữu nghị Việt Đức 1</div>
-                    <div>Bệnh viện Hữu nghị Việt Đức 1</div>
-                  </div>
-                </div>
-              </div>
-              <div className="section-customize">
-                <div className="cus-border">
-                  <div className="outer-bg">
-                    <div className="img-cus"></div>
-                  </div>
-                  <div className="position text-center">
-                    <div>Bệnh viện Hữu nghị Việt Đức 1</div>
-                    <div>Bệnh viện Hữu nghị Việt Đức 1</div>
-                  </div>
-                </div>
-              </div>
-              <div className="section-customize">
-                <div className="cus-border">
-                  <div className="outer-bg">
-                    <div className="img-cus"></div>
-                  </div>
-                  <div className="position text-center">
-                    <div>Bệnh viện Hữu nghị Việt Đức 1</div>
-                    <div>Bệnh viện Hữu nghị Việt Đức 1</div>
-                  </div>
-                </div>
-              </div>
+              {arrDoctor &&
+                arrDoctor.length > 0 &&
+                arrDoctor.map((item, index) => {
+                  if (index === 0) {
+                    console.log("check data", item);
+                  }
+                  let nameVi = item.positionData.valueVi;
+                  let nameEn = item.positionData.valueEn;
+                  console.log(nameEn);
+                  return (
+                    <div className="section-customize" key={index}>
+                      <div className="cus-border">
+                        <div className="outer-bg">
+                          <div className="img-cus"></div>
+                        </div>
+                        <div className="position text-center">
+                          <div>
+                            {language === LANGUAGES.VI ? nameVi : nameEn}
+                          </div>
+                          <div>Bệnh viện Hữu nghị Việt Đức 1</div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
             </Slider>
           </div>
         </div>
@@ -96,11 +77,14 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
     language: state.app.language,
+    topDoctorRedux: state.admin.topDoctor,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    loadTopDoctor: () => dispatch(actions.fetchTopDoctor()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor);

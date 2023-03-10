@@ -7,6 +7,7 @@ import {
   delUserService,
   editUserService,
 } from "../../services/userService";
+import { getTopDoctorService } from "../../services/doctorService";
 import { dispatch } from "../../redux";
 // export const fetchGenderStart = () => ({
 //   type: actionTypes.FETCH_GENDER_START,
@@ -204,3 +205,28 @@ export const editUserSucceed = () => ({
 export const editUserFailed = () => ({
   type: actionTypes.EDIT_USER_FAILED,
 });
+
+export const fetchTopDoctor = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getTopDoctorService("");
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_TOP_DOCTOR_SUCCEED,
+          dataDoctor: res.data,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_TOP_DOCTOR_FAILED,
+        });
+      }
+
+      // dispatch({ type: actionTypes.FETCH_GENDER_START });
+    } catch (error) {
+      console.log("error from adminAction fetch doctor ", error);
+      dispatch({
+        type: actionTypes.FETCH_TOP_DOCTOR_FAILED,
+      });
+    }
+  };
+};
