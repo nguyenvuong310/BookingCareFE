@@ -242,6 +242,9 @@
         background: #d7d7d7 !important;
       }
     }
+    .slick-disabled {
+      display: none !important;
+    }
     .slick-prev:before,
     .slick-next:before {
       font-family: FontAwesome !important;
@@ -286,7 +289,7 @@
     .outer-bg {
       margin-bottom: 10px;
       .img-cus {
-        background-image: url("../../assets/doctor/103848anh-dai-dien-bs.jpg");
+        // background-image: url("../../assets/doctor/103848anh-dai-dien-bs.jpg");
         height: 120px !important;
         width: 120px !important;
         margin: 0 auto;
