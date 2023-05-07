@@ -7,7 +7,11 @@ import {
   delUserService,
   editUserService,
 } from "../../services/userService";
-import { getTopDoctorService } from "../../services/doctorService";
+import {
+  getTopDoctorService,
+  getAllDoctor,
+  saveInforDoctor,
+} from "../../services/doctorService";
 import { dispatch } from "../../redux";
 // export const fetchGenderStart = () => ({
 //   type: actionTypes.FETCH_GENDER_START,
@@ -226,6 +230,58 @@ export const fetchTopDoctor = () => {
       console.log("error from adminAction fetch doctor ", error);
       dispatch({
         type: actionTypes.FETCH_TOP_DOCTOR_FAILED,
+      });
+    }
+  };
+};
+
+export const fetchAllDoctor = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllDoctor();
+      if (res && res.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_DOCTOR_SUCCEED,
+          dataDoctor: res.data,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_ALL_DOCTOR_FAILED,
+        });
+      }
+
+      // dispatch({ type: actionTypes.FETCH_GENDER_START });
+    } catch (error) {
+      console.log("error from adminAction fetch doctor ", error);
+      dispatch({
+        type: actionTypes.FETCH_ALL_DOCTOR_FAILED,
+      });
+    }
+  };
+};
+
+export const postInforDoctor = (inputData) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await saveInforDoctor(inputData);
+      if (res && res.errCode === 0) {
+        toast.success(res.errMessage);
+        dispatch({
+          type: actionTypes.SAVE_INFOR_DOCTOR_SUCCEED,
+        });
+      } else {
+        toast.error("error from server");
+        dispatch({
+          type: actionTypes.SAVE_INFOR_DOCTOR_FAILED,
+        });
+      }
+
+      // dispatch({ type: actionTypes.FETCH_GENDER_START });
+    } catch (error) {
+      console.log("error from adminAction save doctor ", error);
+      toast.error("error from server");
+      dispatch({
+        type: actionTypes.SAVE_INFOR_DOCTOR_FAILED,
       });
     }
   };

@@ -294,7 +294,7 @@ class UserRedux extends Component {
                   <FormattedMessage id="manage-user.Gender" />
                 </label>
                 <select
-                  class="form-control"
+                  className="form-control"
                   onChange={(event) =>
                     this.handleOnChangeInput(event, "Gender")
                   }
@@ -319,7 +319,7 @@ class UserRedux extends Component {
                   <FormattedMessage id="manage-user.Position" />
                 </label>
                 <select
-                  class="form-control"
+                  className="form-control"
                   onChange={(event) =>
                     this.handleOnChangeInput(event, "Position")
                   }
@@ -344,7 +344,7 @@ class UserRedux extends Component {
                   <FormattedMessage id="manage-user.role" />
                 </label>
                 <select
-                  class="form-control"
+                  className="form-control"
                   onChange={(event) => this.handleOnChangeInput(event, "Role")}
                   value={Role}
                 >
