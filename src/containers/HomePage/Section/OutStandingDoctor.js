@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { Redirect } from "react-router-dom";
+import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import * as actions from "../../../store/actions";
 import { FormattedMessage } from "react-intl";
@@ -25,6 +25,10 @@ class OutStandingDoctor extends Component {
       });
     }
   }
+  handleViewDetailDoctor = (Infor) => {
+    console.log(Infor);
+    this.props.history.push(`/doctors/${Infor.id}`);
+  };
   render() {
     console.log("check props", this.props.topDoctorRedux);
     let { arrDoctor } = this.state;
@@ -61,9 +65,13 @@ class OutStandingDoctor extends Component {
                     item.lastName +
                     " " +
                     item.firstName;
-                  console.log(nameEn);
+                  //console.log(nameEn);
                   return (
-                    <div className="section-customize" key={index}>
+                    <div
+                      className="section-customize"
+                      key={index}
+                      onClick={() => this.handleViewDetailDoctor(item)}
+                    >
                       <div className="cus-border">
                         <div className="outer-bg">
                           <div
@@ -105,4 +113,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(OutStandingDoctor)
+);

@@ -9,5 +9,12 @@ const getAllDoctor = () => {
 const saveInforDoctor = (data) => {
   return axios.post(`/api/post-infor-doctor`, data);
 };
-
-export { getTopDoctorService, getAllDoctor, saveInforDoctor };
+const getDetailInforDoctor = (id) => {
+  return axios.get(`/api/get-detail-infor-doctor?id=${id}`);
+};
+export {
+  getTopDoctorService,
+  getAllDoctor,
+  saveInforDoctor,
+  getDetailInforDoctor,
+};
