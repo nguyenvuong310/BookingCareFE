@@ -17,7 +17,7 @@ import Home from "../routes/Home";
 import Login from "./Auth/Login";
 import Header from "./Header/Header";
 import System from "../routes/System";
-
+import Doctor from "../routes/Doctor";
 import { CustomToastCloseButton } from "../components/CustomToast";
 import ConfirmModal from "../components/ConfirmModal";
 import HomePage from "./HomePage/HomePage.js";
@@ -58,6 +58,10 @@ class App extends Component {
                   <Route
                     path={path.SYSTEM}
                     component={userIsAuthenticated(System)}
+                  />
+                  <Route
+                    path={path.DOCTOR}
+                    component={userIsAuthenticated(Doctor)}
                   />
                   <Route path={path.HOMEPAGE} component={HomePage} />
                   <Route path={path.DETAILDOCTOR} component={DetailDoctor} />

@@ -286,3 +286,28 @@ export const postInforDoctor = (inputData) => {
     }
   };
 };
+
+export const fetchAllSchedule = () => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await getAllCodeService("TIME");
+      if (res && res.data && res.data.errCode === 0) {
+        dispatch({
+          type: actionTypes.FETCH_ALL_CODE_SCHEDULE_SUCCEED,
+          dataTime: res.data.data,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_ALL_CODE_SCHEDULE_FAILED,
+        });
+      }
+
+      // dispatch({ type: actionTypes.FETCH_GENDER_START });
+    } catch (error) {
+      console.log("error from adminAction fetch doctor ", error);
+      dispatch({
+        type: actionTypes.FETCH_ALL_CODE_SCHEDULE_FAILED,
+      });
+    }
+  };
+};

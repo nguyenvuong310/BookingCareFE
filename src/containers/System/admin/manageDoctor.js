@@ -115,10 +115,10 @@ class ManageDoctor extends Component {
   render() {
     return (
       <div className="manage-doctor-container">
-        <div className="manage-doctor-title">Hello</div>
+        <div className="manage-doctor-title">Quản lý Thông Tin Bác Sĩ</div>
         <div className="more-infor">
           <div className="content-left">
-            <label>Chon bac si</label>
+            <label>Chọn Bác Sĩ</label>
             <Select
               value={this.state.selectedDoctor}
               onChange={this.handleChangeSelect}
@@ -127,7 +127,7 @@ class ManageDoctor extends Component {
             />
           </div>
           <div className="content-right">
-            <label>Thong tin gioi thieu</label>
+            <label>Thông Tin Giới Thiệu</label>
             <textarea
               className="form-control"
               rows="4"
