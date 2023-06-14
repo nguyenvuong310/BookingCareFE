@@ -16,5 +16,13 @@
       padding: 5px 10px;
       border: 1px solid gray;
     }
+    .btn-schedule {
+      &.isSelected {
+        background-color: #f7d800;
+      }
+    }
+  }
+  .btn-save {
+    margin-left: 14px;
   }
 }

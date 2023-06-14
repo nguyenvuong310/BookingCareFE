@@ -26,6 +26,9 @@ const editUserService = (inputData) => {
 const getAllCodeService = (inputType) => {
   return axios.get(`/api/allcode?type=${inputType}`);
 };
+const postDataSchedule = (data) => {
+  return axios.post("/api/bulk-create-schedule", data);
+};
 export {
   handleLoginApi,
   getAllUsers,
@@ -33,4 +36,5 @@ export {
   delUserService,
   editUserService,
   getAllCodeService,
+  postDataSchedule,
 };

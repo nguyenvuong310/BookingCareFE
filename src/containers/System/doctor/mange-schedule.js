@@ -4,11 +4,13 @@ import { connect } from "react-redux";
 import "./manage-schedule.scss";
 // import UserRedux from "./UserRedux";
 import * as actions from "../../../store/actions";
-import { CRUD_ACTIONS, LANGUAGES } from "../../../utils";
-
-import { getDetailInforDoctor } from "../../../services/doctorService";
+import { CRUD_ACTIONS, LANGUAGES, dateFormat } from "../../../utils";
+import { postDataSchedule } from "../../../services/userService";
 import Select from "react-select";
 import DatePicker from "../../../components/Input/DatePicker";
+import { toast } from "react-toastify";
+import _ from "lodash";
+import moment from "moment";
 
 class ManageSchedule extends Component {
   constructor(props) {
@@ -41,9 +43,14 @@ class ManageSchedule extends Component {
       });
     }
     if (prevProps.allScheduleTime !== this.props.allScheduleTime) {
-      console.log("check range time", this.props.allScheduleTime);
+      // console.log("check range time", this.props.allScheduleTime);
+      let data = this.props.allScheduleTime;
+      if (data && data.length > 0) {
+        data = data.map((item) => ({ ...item, isSelected: false }));
+      }
+      // console.log("check data", data);
       this.setState({
-        rangeTime: this.props.allScheduleTime,
+        rangeTime: data,
       });
     }
   }
@@ -79,6 +86,56 @@ class ManageSchedule extends Component {
       currentDate: Date[0],
     });
   };
+  handleSelectTime = (obj) => {
+    let { rangeTime } = this.state;
+    if (rangeTime && rangeTime.length > 0) {
+      let data = rangeTime;
+      data = data.map((item) => {
+        if (item.id === obj.id) {
+          item.isSelected = !item.isSelected;
+        }
+        return item;
+      });
+      this.setState({
+        rangeTime: data,
+      });
+      // console.log("check rangtime", this.state.rangeTime);
+    }
+  };
+  handleSave = async () => {
+    let { rangeTime, currentDate, selectedDoctor } = this.state;
+    let results = [];
+    if (!selectedDoctor) {
+      toast.warn("Bạn chưa chọn bác sĩ!");
+      return;
+    }
+    if (!currentDate) {
+      toast.warn("Bạn chưa chọn ngày khám!");
+      return;
+    }
+    let formatedDate = new Date(currentDate).getTime();
+    if (rangeTime && rangeTime.length > 0) {
+      let selectedTime = rangeTime.filter((item) => item.isSelected === true);
+      if (selectedTime && selectedTime.length > 0) {
+        selectedTime.map((time) => {
+          let obj = {};
+          obj.doctorId = selectedDoctor.value;
+          obj.date = formatedDate;
+          obj.timeType = time.keyMap;
+          results.push(obj);
+        });
+        console.log("check result", results);
+        await postDataSchedule({
+          arrSchedule: results,
+          doctorId: selectedDoctor.value,
+          formatedDate: formatedDate,
+        });
+      } else {
+        toast.warn("Bạn chưa chọn giờ khám!");
+        return;
+      }
+    }
+  };
   render() {
     let { rangeTime } = this.state;
     return (
@@ -101,7 +158,7 @@ class ManageSchedule extends Component {
                 onChange={this.handleOnchangeDatePicker}
                 className="form-control"
                 minDate={new Date()}
-                value={this.state.currentDate[0]}
+                value={this.state.currentDate}
               />
             </div>
             <div className="col-12 form-group pick-hour-container">
@@ -109,15 +166,28 @@ class ManageSchedule extends Component {
                 rangeTime.length > 0 &&
                 rangeTime.map((item, index) => {
                   return (
-                    <button className="btn btn-schedule" key={index}>
-                      {this.props.language == LANGUAGES.VI
+                    <button
+                      className={
+                        item.isSelected === true
+                          ? "btn btn-schedule isSelected"
+                          : "btn btn-schedule"
+                      }
+                      key={index}
+                      onClick={() => this.handleSelectTime(item)}
+                    >
+                      {this.props.language === LANGUAGES.VI
                         ? item.valueVi
                         : item.valueEn}
                     </button>
                   );
                 })}
             </div>
-            <button className="btn btn-primary">save</button>
+            <button
+              className="btn btn-primary btn-save col-1 form-group"
+              onClick={() => this.handleSave()}
+            >
+              save
+            </button>
           </div>
         </div>
       </div>
