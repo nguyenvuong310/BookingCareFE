@@ -113,7 +113,8 @@ class ManageSchedule extends Component {
       toast.warn("Bạn chưa chọn ngày khám!");
       return;
     }
-    let formatedDate = new Date(currentDate).getTime();
+    let formatedDate = new Date(currentDate).getTime().toString();
+    // console.log("check type of format", typeof formatedDate);
     if (rangeTime && rangeTime.length > 0) {
       let selectedTime = rangeTime.filter((item) => item.isSelected === true);
       if (selectedTime && selectedTime.length > 0) {
@@ -124,7 +125,8 @@ class ManageSchedule extends Component {
           obj.timeType = time.keyMap;
           results.push(obj);
         });
-        console.log("check result", results);
+        // console.log("check result", results);
+        toast.success("success");
         await postDataSchedule({
           arrSchedule: results,
           doctorId: selectedDoctor.value,

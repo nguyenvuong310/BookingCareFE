@@ -26,5 +26,8 @@
     &:hover {
       opacity: 0.8;
     }
+    &.edit {
+      background-color: yellow;
+    }
   }
 }

@@ -11,6 +11,7 @@ import MdEditor from "react-markdown-editor-lite";
 import "react-markdown-editor-lite/lib/index.css";
 import { getDetailInforDoctor } from "../../../services/doctorService";
 import Select from "react-select";
+import { toast } from "react-toastify";
 // Initialize a markdown parser
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -70,13 +71,21 @@ class ManageDoctor extends Component {
       doctorId: this.state.selectedDoctor.value,
       actions: hasOldData === true ? CRUD_ACTIONS.EDIT : CRUD_ACTIONS.CREATE,
     });
+    toast.success("success!");
   };
   handleChangeSelect = async (selectedDoctor) => {
     this.setState({ selectedDoctor }, () =>
       console.log(`Option selected:`, this.state.selectedDoctor)
     );
     let res = await getDetailInforDoctor(selectedDoctor.value);
-    if (res && res.errCode === 0 && res.data && res.data.markdown) {
+    if (
+      res &&
+      res.errCode === 0 &&
+      res.data &&
+      res.data.markdown &&
+      res.data.markdown.intro &&
+      res.data.markdown.contentMarkdown
+    ) {
       this.setState({
         description: res.data.markdown.intro,
         contentHTML: res.data.markdown.contentHTML,
@@ -145,10 +154,14 @@ class ManageDoctor extends Component {
           />
         </div>
         <button
-          className="save-content-doctor"
+          className={
+            this.state.hasOldData === true
+              ? "save-content-doctor edit"
+              : "save-content-doctor"
+          }
           onClick={(event) => this.handleSaveMarkdown(event)}
         >
-          save
+          Save
         </button>
       </div>
     );

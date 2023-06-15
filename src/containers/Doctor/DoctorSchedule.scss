@@ -1,0 +1,30 @@
+.doctor-detail-containers {
+  .doctor-day-container {
+    margin-left: 62px;
+    .up {
+      width: 25%;
+    }
+    .down {
+      margin-top: 15px;
+      .txt {
+        margin-left: 10px;
+        font-weight: 600;
+        font-size: 15px;
+      }
+      .calendarByDay {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap; //xuong dong
+        .btn-time {
+          width: 133px;
+          height: 46px;
+          background-color: #fff8ae;
+          border: none;
+          &:hover {
+            border: 2px solid blue;
+          }
+        }
+      }
+    }
+  }
+}
