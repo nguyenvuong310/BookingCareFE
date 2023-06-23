@@ -190,6 +190,7 @@ class UserRedux extends Component {
     let position = this.state.posArr;
     let role = this.state.roleArr;
     let language = this.props.language;
+    console.log("check language", language);
     const {
       email,
       phoneNumber,

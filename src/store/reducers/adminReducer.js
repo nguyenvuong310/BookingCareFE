@@ -9,6 +9,7 @@ const initialState = {
   topDoctor: [],
   allDoctor: [],
   allScheduleTime: [],
+  allRequiredData: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -90,13 +91,23 @@ const adminReducer = (state = initialState, action) => {
         ...state,
       };
     case actionTypes.FETCH_ALL_CODE_SCHEDULE_SUCCEED:
-      console.log("check datatime", action.dataTime);
       state.allScheduleTime = action.dataTime;
       return {
         ...state,
       };
     case actionTypes.FETCH_ALL_CODE_SCHEDULE_FAILED:
       state.allScheduleTime = [];
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_CODE_DOCTOR_SUCCEED:
+      state.allRequiredData = action.listData;
+      console.log("check list data ", action.listData);
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ALL_CODE_DOCTOR_FAILED:
+      state.allRequiredData = [];
       return {
         ...state,
       };

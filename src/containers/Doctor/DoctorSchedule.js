@@ -6,7 +6,7 @@ import "./DoctorSchedule.scss";
 import { getScheduleByDay } from "../../services/doctorService";
 //
 import { LANGUAGES } from "../../utils";
-import moment from "moment";
+import moment, { lang } from "moment";
 import localization from "moment/locale/vi";
 import Select from "react-select";
 
@@ -16,7 +16,7 @@ class DoctorSchedule extends Component {
     this.state = {
       DoctorSchedule: {},
       listAllDay: [],
-      selectedDay: new Date(),
+      selectedDay: {},
       listHourByDay: [],
       language: this.props.language,
     };
@@ -24,13 +24,18 @@ class DoctorSchedule extends Component {
   capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  componentDidMount() {
+  async componentDidMount() {
     let arrDay = [];
-    for (let i = 0; i < 7; i++) {
+    for (let i = 1; i < 8; i++) {
       let obj = {};
       let label = moment(new Date()).add(i, "days").format("dddd - DD/MM");
       obj.value = moment(new Date()).add(i, "days").startOf("day").valueOf();
       obj.label = this.capitalizeFirstLetter(label);
+      if (i == 1) {
+        this.setState({
+          selectedDay: obj,
+        });
+      }
       arrDay.push(obj);
     }
     console.log("check arr day", arrDay);
@@ -38,29 +43,43 @@ class DoctorSchedule extends Component {
       listAllDay: arrDay,
     });
   }
+  async componentDidUpdate(prevProps, prevState, snapShot) {
+    if (this.props.doctorInfor !== prevProps.doctorInfor) {
+      let res = await getScheduleByDay(
+        this.props.doctorInfor,
+        this.state.selectedDay.value
+      );
+      console.log("check res fro didmount", res);
+      if (res && res.data) {
+        this.setState({
+          listHourByDay: res.data,
+        });
+      }
+    }
+  }
   handleChangeSelect = async (selectedDay) => {
     this.setState({ selectedDay }, () =>
       console.log(`Option selected:`, this.state.selectedDay)
     );
-    // console.log("check prosp", this.props.doctorInfor);
-    let doctorInfor = this.props.doctorInfor;
-    let res = await getScheduleByDay(doctorInfor.id, selectedDay.value);
+    let res = await getScheduleByDay(this.props.doctorInfor, selectedDay.value);
     if (res && res.data) {
       this.setState({
         listHourByDay: res.data,
       });
     }
   };
-  componentDidUpdate(prevProps, prevState, snapShot) {
-    if (prevProps.language !== this.props.language) {
-      this.setState({
-        language: this.props.language,
-      });
-    }
-  }
+  // componentDidUpdate(prevProps, prevState, snapShot) {
+  //   if (prevProps.language !== this.props.language) {
+  //     this.setState({
+  //       language: this.props.language,
+  //     });
+  //   }
+  // }
   render() {
     // console.log(this.props.match.params.id);
-    const { listHourByDay, language } = this.state;
+    const { listHourByDay } = this.state;
+    const { language } = this.props;
+    console.log("check test", language);
     return (
       <>
         <div className="doctor-detail-containers">
@@ -70,9 +89,10 @@ class DoctorSchedule extends Component {
                 value={this.state.selectedDay}
                 onChange={this.handleChangeSelect}
                 options={this.state.listAllDay}
-                className=""
+                className="custom-react-select"
               />
             </div>
+            <hr width="180px" align="left" color="black"></hr>
             <div className="down">
               <i className="fas fa-calendar-alt icon"> </i>
               <span className="txt">Lịch khám </span>
@@ -88,13 +108,19 @@ class DoctorSchedule extends Component {
                     );
                   })
                 ) : (
-                  <div>
+                  <div className="txt-no">
                     {" "}
                     Không có lịch trong thời gian này. Xin vui lòng chọn thời
                     gian khác!!
                   </div>
                 )}
               </div>
+              {listHourByDay && listHourByDay.length > 0 && (
+                <div className="txt-huongdan">
+                  Chọn <i className="fas fa-hand-point-up"></i> và đặt (Phí đặt
+                  lịch 0<sup>đ</sup>)
+                </div>
+              )}
             </div>
           </div>
         </div>

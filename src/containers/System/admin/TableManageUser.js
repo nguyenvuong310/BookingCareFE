@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./TableManageUser.scss";
-import UserRedux from "./UserRedux";
 import * as actions from "../../../store/actions";
 
 // Finish!

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { FormattedMessage } from "react-intl";
 import { connect } from "react-redux";
 import "./manage-schedule.scss";
-// import UserRedux from "./UserRedux";
 import * as actions from "../../../store/actions";
 import { CRUD_ACTIONS, LANGUAGES, dateFormat } from "../../../utils";
 import { postDataSchedule } from "../../../services/userService";

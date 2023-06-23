@@ -311,3 +311,45 @@ export const fetchAllSchedule = () => {
     }
   };
 };
+
+export const fetchAllRequireABoutDoctor = () => {
+  return async (dispatch, getState) => {
+    try {
+      let resPrice = await getAllCodeService("PRICE");
+      let resPayment = await getAllCodeService("PAYMENT");
+      let resProvince = await getAllCodeService("PROVINCE");
+      if (
+        resPrice &&
+        resPrice.data &&
+        resPrice.data.errCode === 0 &&
+        resPayment &&
+        resPayment.data &&
+        resPayment.data.errCode === 0 &&
+        resProvince &&
+        resProvince.data &&
+        resProvince.data.errCode === 0
+      ) {
+        let data = {
+          listPrice: resPrice.data.data,
+          listPayment: resPayment.data.data,
+          listProvince: resProvince.data.data,
+        };
+        dispatch({
+          type: actionTypes.FETCH_ALL_CODE_DOCTOR_SUCCEED,
+          listData: data,
+        });
+      } else {
+        dispatch({
+          type: actionTypes.FETCH_ALL_CODE_DOCTOR_FAILED,
+        });
+      }
+
+      // dispatch({ type: actionTypes.FETCH_GENDER_START });
+    } catch (error) {
+      console.log("error from adminAction fetch doctor dong 349 ", error);
+      dispatch({
+        type: actionTypes.FETCH_ALL_CODE_DOCTOR_FAILED,
+      });
+    }
+  };
+};
