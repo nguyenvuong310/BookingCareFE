@@ -1,0 +1,45 @@
+.doctor-extra-containers {
+  padding-left: 15px;
+  width: 75%;
+  .content-up {
+    .text-address {
+      text-transform: uppercase;
+      font-size: 14px;
+      color: #666;
+      font-weight: bold;
+    }
+    .text-nameClinic {
+      font-weight: 600;
+      padding-top: 10px;
+    }
+    .text-addressClinic {
+      padding-top: 10px;
+    }
+  }
+  .content-down {
+    padding-top: 10px;
+    .tilte-price {
+      font-weight: 600;
+    }
+    .border-custom {
+      border: 1px solid #ddd;
+      padding: 5px;
+      background: #f8f8f8;
+      .right {
+        float: right;
+      }
+    }
+    .show-hide-more {
+      color: #45c3d2;
+      &:hover {
+        cursor: pointer;
+      }
+      &.hiden {
+        margin-top: 5px;
+      }
+      &.show {
+        padding-left: 5px;
+      }
+    }
+  }
+}

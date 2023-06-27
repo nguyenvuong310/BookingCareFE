@@ -24,16 +24,17 @@
   }
   .schedule-doctor {
     padding-top: 10px;
-    height: 332px;
     margin: 0 182px;
     display: flex;
     gap: 10px;
+    margin-bottom: 14px;
     .content-left {
       width: 50%;
     }
     .content-right {
       width: 50%;
-      border: 1px solid green;
+      border-left: 1px solid #eee;
+      padding-top: 70px;
     }
   }
   .detail-infor-doctor {

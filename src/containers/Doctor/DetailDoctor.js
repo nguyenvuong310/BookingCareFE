@@ -5,8 +5,9 @@ import HomeHeader from "../HomePage/HomeHeader";
 import "./DetailDoctor.scss";
 import { getDetailInforDoctor } from "../../services/doctorService";
 //
-import DoctorSchedule from "./DoctorSchedule";
 
+import DoctorSchedule from "./DoctorSchedule";
+import DoctorExtraInfor from "./DoctorExtraInfor";
 class DetailDoctor extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +35,7 @@ class DetailDoctor extends Component {
       }
     }
   }
-  componentDidUpdate;
+
   render() {
     // console.log(this.props.match.params.id);
     const { DetailDoctor } = this.state;
@@ -52,7 +53,8 @@ class DetailDoctor extends Component {
             ></div>
             <div className="content-right">
               <div className="title-doctor">
-                Phó Giáo sư, Tiến sĩ, Bác sĩ cao cấp Nguyễn Duy Hưng
+                Bác sĩ
+                {" " + DetailDoctor.firstName + " " + DetailDoctor.lastName}
               </div>
               <div className="detail">
                 {DetailDoctor.markdown && DetailDoctor.markdown.intro && (
@@ -63,9 +65,11 @@ class DetailDoctor extends Component {
           </div>
           <div className="schedule-doctor">
             <div className="content-left">
-              <DoctorSchedule doctorInfor={this.state.currentId} />
+              <DoctorSchedule doctorId={this.state.currentId} />
             </div>
-            <div className="content-right"></div>
+            <div className="content-right">
+              <DoctorExtraInfor doctorId={this.state.currentId} />
+            </div>
           </div>
           <div className="detail-infor-doctor">
             {DetailDoctor &&

@@ -29,6 +29,7 @@ const getAllCodeService = (inputType) => {
 const postDataSchedule = (data) => {
   return axios.post("/api/bulk-create-schedule", data);
 };
+
 export {
   handleLoginApi,
   getAllUsers,

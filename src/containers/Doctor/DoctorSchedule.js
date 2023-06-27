@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 // import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import HomeHeader from "../HomePage/HomeHeader";
 import "./DoctorSchedule.scss";
 import { getScheduleByDay } from "../../services/doctorService";
 //
+import BookingModal from "./Modal/BookingModal";
 import { LANGUAGES } from "../../utils";
 import moment, { lang } from "moment";
 import localization from "moment/locale/vi";
@@ -19,6 +19,8 @@ class DoctorSchedule extends Component {
       selectedDay: {},
       listHourByDay: [],
       language: this.props.language,
+      isOpenBookingModal: false,
+      timeIsSelected: "",
     };
   }
   capitalizeFirstLetter(string) {
@@ -44,9 +46,9 @@ class DoctorSchedule extends Component {
     });
   }
   async componentDidUpdate(prevProps, prevState, snapShot) {
-    if (this.props.doctorInfor !== prevProps.doctorInfor) {
+    if (this.props.doctorId !== prevProps.doctorId) {
       let res = await getScheduleByDay(
-        this.props.doctorInfor,
+        this.props.doctorId,
         this.state.selectedDay.value
       );
       console.log("check res fro didmount", res);
@@ -61,20 +63,20 @@ class DoctorSchedule extends Component {
     this.setState({ selectedDay }, () =>
       console.log(`Option selected:`, this.state.selectedDay)
     );
-    let res = await getScheduleByDay(this.props.doctorInfor, selectedDay.value);
+    let res = await getScheduleByDay(this.props.doctorId, selectedDay.value);
     if (res && res.data) {
       this.setState({
         listHourByDay: res.data,
       });
     }
   };
-  // componentDidUpdate(prevProps, prevState, snapShot) {
-  //   if (prevProps.language !== this.props.language) {
-  //     this.setState({
-  //       language: this.props.language,
-  //     });
-  //   }
-  // }
+  openBookingModal = (data) => {
+    this.setState({
+      isOpenBookingModal: !this.state.isOpenBookingModal,
+      timeIsSelected: data,
+    });
+    console.log("check data", data);
+  };
   render() {
     // console.log(this.props.match.params.id);
     const { listHourByDay } = this.state;
@@ -100,7 +102,11 @@ class DoctorSchedule extends Component {
                 {listHourByDay && listHourByDay.length > 0 ? (
                   listHourByDay.map((item, index) => {
                     return (
-                      <button className="btn-time" key={index}>
+                      <button
+                        className="btn-time"
+                        key={index}
+                        onClick={() => this.openBookingModal(item)}
+                      >
                         {language === LANGUAGES.VI
                           ? item.timeData.valueVi
                           : item.timeData.valueEn}
@@ -124,6 +130,11 @@ class DoctorSchedule extends Component {
             </div>
           </div>
         </div>
+        <BookingModal
+          isOpen={this.state.isOpenBookingModal}
+          toggleFromParent={this.openBookingModal}
+          timeIsSelected={this.state.timeIsSelected}
+        />
       </>
     );
   }
