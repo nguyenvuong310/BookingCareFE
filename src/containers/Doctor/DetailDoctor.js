@@ -57,9 +57,11 @@ class DetailDoctor extends Component {
                 {" " + DetailDoctor.firstName + " " + DetailDoctor.lastName}
               </div>
               <div className="detail">
-                {DetailDoctor.markdown && DetailDoctor.markdown.intro && (
-                  <span>{DetailDoctor.markdown.intro}</span>
-                )}
+                {DetailDoctor &&
+                  DetailDoctor.markdown &&
+                  DetailDoctor.markdown.intro && (
+                    <span>{DetailDoctor.markdown.intro}</span>
+                  )}
               </div>
             </div>
           </div>

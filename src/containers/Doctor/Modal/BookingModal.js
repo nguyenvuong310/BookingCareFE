@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./BookingModal.scss";
 //
+import _ from "lodash";
+import ProfileDoctor from "../ProfileDoctor";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 class BookingModal extends Component {
   constructor(props) {
@@ -10,14 +12,19 @@ class BookingModal extends Component {
     this.state = {};
   }
 
-  componentDidMount() {}
+  async componentDidMount() {}
 
   componentDidUpdate(prevProps, prevState, snapShot) {}
   toggle = () => {
     this.props.toggleFromParent();
   };
   render() {
-    console.log("check data select", this.props.timeIsSelected);
+    const { timeIsSelected, dateSelected } = this.props;
+    console.log("check data select", timeIsSelected);
+    let doctorId =
+      timeIsSelected && !_.isEmpty(timeIsSelected)
+        ? timeIsSelected.doctorId
+        : "";
     return (
       <>
         <Modal
@@ -30,10 +37,13 @@ class BookingModal extends Component {
             toggle={() => this.toggle()}
             className="booking-modal-header"
           >
-            Create a new User
+            Đặt lịch
           </ModalHeader>
           <ModalBody>
             <div className="row">
+              <div className="col-12 form-group">
+                <ProfileDoctor doctorId={doctorId} dataTime={timeIsSelected} />
+              </div>
               <div className="col-6 form-group">
                 <label>Ho ten</label>
                 <input className="form-control"></input>
@@ -70,14 +80,14 @@ class BookingModal extends Component {
               className="px-3 btn-register"
               // onClick={() => this.handleAddNewuser()}
             >
-              Add new
+              Đăng ký khám
             </Button>{" "}
             <Button
               color="secondary"
               className="px-3"
               onClick={() => this.toggle()}
             >
-              Close
+              Đóng
             </Button>
           </ModalFooter>
         </Modal>
