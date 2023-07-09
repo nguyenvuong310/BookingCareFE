@@ -25,6 +25,7 @@ class ProfileDoctor extends Component {
   }
 
   async componentDidUpdate(prevProps, prevState, snapShot) {
+    console.log("check from profile doctor", this.props.doctorId);
     if (this.props.doctorId !== prevProps.doctorId) {
       let res = await getProfileDoctor(this.props.doctorId);
       if (res && res.errCode === 0) {
